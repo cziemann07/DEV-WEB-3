@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar tarefa</title>
+</head>
+<body>
+    <h1>Cadastrar nova tarefa</h1>
+
+    <form th:action="@{/tarefas/salvar}" method="post">
+        <label for="">Titulo</label>
+        <input type="text" name="titulo" required>
+
+        <label for="">Data</label>
+        <input type="date" name="data" required>
+
+        <label for="">Descrição</label>
+        <input type="text" name="descricao" required>
+
+        <input type="submit" value="cadastrar">
+    </form>
+
+    <p><a th:href="@{/tarefas}">Voltar</a></p>
+</body>
+</html>

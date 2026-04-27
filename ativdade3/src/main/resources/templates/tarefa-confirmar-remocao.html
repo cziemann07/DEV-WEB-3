@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmar exclusao</title>
+</head>
+<body>
+    <h1>Tem certeza?</h1>
+    <p>Vai excluir a tarefa: <span th:text="${tarefa.titulo}"></span></p>
+
+    <iframe width="560" height="315"
+            src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1"
+            title="confirmacao"
+            allow="autoplay; encrypted-media"
+            allowfullscreen>
+    </iframe>
+
+    <p>
+        <a th:href="@{/tarefas/remover/{id}(id=${tarefa.id})}">Sim, excluir</a> |
+        <a th:href="@{/tarefas}">Nao, voltar</a>
+    </p>
+</body>
+</html>

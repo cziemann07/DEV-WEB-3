@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de tarefas</title>
+</head>
+<body>
+    <h1>Lista de tarefas, ROCK</h1>
+
+    <p>
+        <a th:href="@{/tarefas/cadastrar}">Nova tarefa</a> |
+        <a th:href="@{/tarefas}">Todas</a> |
+        <a th:href="@{/tarefas/em-andamento}">Apenas em andamento</a>
+    </p>
+
+    <table class="table table-bordered">
+        <tr>
+            <td>Id</td>
+            <td>Título</td>
+            <td>Data</td>
+            <td>Status</td>
+            <td>Opções</td>
+        </tr>
+        <tr th:each="t : ${tarefas}">
+            <td th:text="${t.id}">Id</td>
+            <td>
+                <a th:href="@{/tarefas/detalhes/{id}(id=${t.id})}" th:text="${t.titulo}">Título</a>
+            </td>
+            <td th:text="${t.data}">Data</td>
+            <td th:text="${t.status}">Status</td>
+            <td>
+                <a th:href="@{/tarefas/editar/{id}(id=${t.id})}">editar</a>
+                <a th:href="@{/tarefas/confirmar-remocao/{id}(id=${t.id})}">excluir</a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

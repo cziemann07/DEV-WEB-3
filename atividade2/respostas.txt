@@ -1,0 +1,23 @@
+Atividade - Rotas e ciclo de vida de uma aplicação
+
+
+Exercício 2
+
+Questão c) Resultados após acessar a rota /lifecycle no navegador:
+
+i) A mensagem "Chamou o método init" apareceu apenas 1 vez, logo no início, quando a aplicação foi iniciada.
+
+ii) A mensagem "Chamou o método service" apareceu uma vez para cada acesso à rota /lifecycle. No meu teste fiz 3 acessos e apareceu 3 vezes.
+
+iii) A mensagem "Chamou o método destroy" apareceu 1 vez, no momento em que a aplicação foi encerrada (parando o server).
+
+iv) Sim, atualizando o navegador com F5 várias vezes, o método service foi executado em cada atualização. Ou seja, aparece a mensagem "Chamou o método service" no console a cada F5. Já o init e o destroy não são chamados, pois eles só executam no início e no fim do ciclo de vida do controller. É singleton, cria o controller apenas uma vez e reaproveita o mesmo objeto para responder todas as requisições.
+
+
+Questão d) Sobre o ContadorController:
+
+i) Quando precisamos guardar uma informação que vale para a aplicação inteira e que deve ser compartilhada entre todas as requisições. Ex: contar o número total de visitas em uma página, manter um cache de dados que são consultados muitas vezes, ou armazenar configurações gerais do sistema. Como o Spring usa um único objeto controller p responder a todas as requisições, esse atributo continua existindo entre uma requisição e outra.
+
+ii) Eu não acho que essa abordagem seja adequada para sistemas com muitos usuários acessando ao mesmo tempo. O problema é que o atributo "contador" é um inteiro comum, e a operação contador++ não é atômica (isto é, ela, basicamente, faz três passos: ler o valor, somar 1 e gravar de volta). Se duas requisições acontecerem ao mesmo tempo, as duas podem ler o mesmo valor antes de gravar, e o contador acaba perdendo incrementos. Pra resolver isso, seria melhor usar AtomicInteger, ou então sincronizar o método... ou ainda guardar o contador em um banco de dados.
+
+iii) Algo só é "Thread Safe" quando pode ser usado por várias threads ao mesmo tempo sem dar problemas de inconsistência. Em uma aplicação web isso é muito importante porque cada requisição é tratada por uma thread diferente do servidor. As variáveis locais de um método (como parâmetros e variáveis declaradas dentro do método) são criadas separadamente para cada chamada, então uma requisição não interfere na outra. Se os dados de uma requisição vazassem para outra, um usuário poderia acabar vendo informações de outro usuário, o que seria um erro grave de segurança e de funcionamento. Tendo isso em mente, a importância torna-se óbvia.

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar tarefa</title>
+</head>
+<body>
+    <h1>Editar tarefa</h1>
+
+    <form th:action="@{/tarefas/atualizar}" method="post">
+        <input type="hidden" name="id" th:value="${tarefa.id}">
+
+        <label for="">Titulo</label>
+        <input type="text" name="titulo" th:value="${tarefa.titulo}" required>
+
+        <label for="">Data</label>
+        <input type="date" name="data" th:value="${tarefa.data}" required>
+
+        <label for="">Descrição</label>
+        <input type="text" name="descricao" th:value="${tarefa.descricao}" required>
+
+        <label for="">Status</label>
+        <select name="status">
+            <option value="EM_ANDAMENTO" th:selected="${tarefa.status.name() == 'EM_ANDAMENTO'}">Em andamento</option>
+            <option value="CONCLUIDO" th:selected="${tarefa.status.name() == 'CONCLUIDO'}">Concluído</option>
+            <option value="CANCELADO" th:selected="${tarefa.status.name() == 'CANCELADO'}">Cancelado</option>
+        </select>
+
+        <input type="submit" value="atualizar">
+    </form>
+
+    <p><a th:href="@{/tarefas}">Voltar</a></p>
+</body>
+</html>

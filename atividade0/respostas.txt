@@ -1,0 +1,77 @@
+1)
+Os principais protocolos usados na comunicação web são:
+
+HTTP (HyperText Transfer Protocol): protocolo da camada de aplicação usado na troca de mensagens entre cliente e servidor. Define como as requisições e respostas devem ser estruturadas.
+HTTPS: é o HTTP com uma camada de segurança (TLS/SSL). Serve para criptografar os dados durante a comunicação.
+TCP: protocolo de transporte que garante a entrega dos dados de forma correta, na ordem e sem perdas.
+IP: responsável pelo endereçamento e roteamento dos pacotes na rede.
+DNS: traduz nomes de domínio (como google.com) para endereços IP.
+
+2)
+Na arquitetura cliente-servidor, o cliente (geralmente o navegador) inicia a comunicação enviando uma requisição ao servidor. Essa requisição pode pedir uma página, uma imagem, dados, etc.
+O servidor recebe, processa e devolve uma resposta.
+
+O cliente sempre inicia a comunicação. O servidor apenas responde.
+
+Essa separação permite que cada lado funcione de forma independente. O cliente não precisa saber como o servidor funciona internamente, e o servidor não precisa saber como o cliente vai usar a resposta.
+
+3)
+O HTTP padroniza a comunicação entre cliente e servidor. Ele define como as requisições devem ser feitas (métodos, cabeçalhos, corpo) e como as respostas devem ser retornadas (status, cabeçalhos, conteúdo).
+
+Sem esse padrão, mesmo que houvesse comunicação na rede, não haveria uma forma comum de interpretar as mensagens.
+
+4)
+
+a) Métodos de requisição:
+
+GET: usado para buscar um recurso. Não altera dados no servidor e é idempotente.
+POST: usado para enviar dados e criar novos recursos. Não é idempotente.
+PUT: usado para atualizar ou substituir um recurso existente. É idempotente.
+DELETE: usado para remover um recurso.
+
+b) Status de resposta:
+
+200 OK: requisição processada com sucesso.
+404 Not Found: recurso não encontrado.
+500 Internal Server Error: erro interno no servidor.
+301 Moved Permanently: recurso movido para outra URL.
+401 Unauthorized: acesso sem autenticação válida.
+
+5)
+Como o cliente sempre inicia a comunicação, existem algumas estratégias para simular envio de dados em tempo real pelo servidor:
+
+Polling: o cliente faz requisições periódicas para verificar se há novidades.
+Long Polling: o cliente faz a requisição e o servidor mantém a conexão aberta até ter uma resposta.
+WebSocket: cria uma conexão persistente e bidirecional, permitindo comunicação em tempo real.
+Server-Sent Events (SSE): o servidor envia eventos continuamente para o cliente, mas apenas em uma direção.
+
+6)
+No Spring MVC, o fluxo começa pelo DispatcherServlet, que recebe todas as requisições.
+
+Ele usa o HandlerMapping para identificar qual controller deve tratar a requisição. Depois, o HandlerAdapter executa o método correspondente.
+
+O controller processa a lógica e retorna um resultado.
+Se for uma aplicação MVC tradicional, esse retorno é uma view. O ViewResolver encontra o template e monta a resposta.
+Se for um @RestController, o retorno é convertido diretamente em JSON por um HttpMessageConverter.
+
+O DispatcherServlet então envia a resposta final para o cliente.
+
+7)
+Anotações em Java são usadas para adicionar metadados ao código. Elas começam com @ e podem ser aplicadas em classes, métodos, atributos e parâmetros.
+
+Diferente de comentários, elas são interpretadas pelo compilador, por ferramentas ou em tempo de execução (via reflection).
+
+Elas permitem configurar o comportamento do sistema de forma declarativa, sem necessidade de arquivos XML extensos.
+
+Frameworks como Spring, JPA e JUnit usam bastante esse recurso.
+
+8)
+O Spring usa dois conceitos principais: Inversão de Controle (IoC) e Injeção de Dependência (DI).
+
+Durante a inicialização, o Spring faz um component scan, procurando classes anotadas com @Component, @Controller, @Service ou @Repository.
+
+Essas classes são instanciadas automaticamente e armazenadas no ApplicationContext, formando os chamados beans.
+
+Quando uma classe depende de outra, não é necessário instanciá-la manualmente. O Spring injeta automaticamente a dependência, geralmente via construtor ou @Autowired.
+
+Isso reduz o acoplamento e deixa o código mais organizado, já que cada classe apenas declara o que precisa, sem se preocupar com a criação das dependências.
